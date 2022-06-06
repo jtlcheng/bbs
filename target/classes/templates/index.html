@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>首页</h1>
+<p th:text="${msg}"></p>
+<hr>
+<a th:href="@{/user/addUser}">add</a>  |  <a th:href="@{/user/updateUser}">update</a>
+</body>
+</html>

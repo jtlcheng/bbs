@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap/js/bootstrap.min.js">
+</head>
+<body>
+<form role="form">
+    <div class="form-group">
+
+        <input type="text" class="form-control" id="username" placeholder="请输入用户名称">
+    </div>
+    <div class="form-group">
+
+        <input type="text" class="form-control" id="password" placeholder="请输入密码">
+    </div>
+    <div class="form-group">
+
+        <input type="text" class="form-control" id="email" placeholder="请输入邮箱地址">
+    </div>
+    <div class="form-group">
+        <label for="sex">性别</label>
+        <!--						<div class="form-group has-success has-feedback">-->
+        <select class="form-control" id="sex">
+            <option value="1">男</option>
+            <option value="2">女</option>
+        </select>
+        <!--						</div>-->
+    </div>
+    <div>
+        <input type="date" id="uRegDate">
+    </div>
+    <button type="button" class="btn btn-success" onclick="submitData()"><i class="glyphicon glyphicon-plus"></i> 注册</button>
+    <script src="jquery/jquery-2.1.1.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="script/docs.min.js"></script>
+    <script type="text/javascript">
+        function submitData(){
+            var jsonObj={
+                "uname":$("#username").val(),
+                "upwd":$("#password").val(),
+                "uemail":$("#email").val(),
+                "usex":$("#sex").val(),
+                "uregDate":$("#uRegDate").val()
+
+            };
+            var jsonStr = JSON.stringify(jsonObj);
+            console.log(jsonStr);
+            $.ajax({
+                url:"userInfo/register",
+                type:"POST",
+                contentType:"application/json",
+                data:jsonStr,
+                dataType:"json",
+                success:function (data) {
+
+                    if(data){
+                        alert("注册成功")
+                        // window.location.href="User1.html";
+                    }else{
+                        alert("出现未知错误，请联系管理员");
+                    }
+                },
+                error:function(data){
+                    alert("出现未知错误，请联系管理员");
+                }
+            })
+
+
+        }
+    </script>
+</form>
+</body>
+</html>

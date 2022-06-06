@@ -1,0 +1,8 @@
+com\cheng\pojo\user.class
+com\cheng\BbsSystemApplication.class
+com\cheng\service\userInfoServiceImpl.class
+com\cheng\service\userInfo.class
+com\cheng\controller\userInfoController.class
+com\cheng\config\userRealm.class
+com\cheng\config\ShiroConfig.class
+com\cheng\dao\userInfoDao.class

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cheng.dao.userInfoDao">
+    <resultMap id="userMap" type="com.cheng.pojo.user">
+        <id column="uId" property="uid"/>
+        <result column="uName" property="uname"/>
+        <result column="uPwd" property="upwd"/>
+        <result column="uEmail" property="uemail"/>
+        <result column="uSex" property="usex"/>
+        <result column="uRegDate" property="uregDate"/>
+    </resultMap>
+    <select id="loginUserInfo" resultType="user" parameterType="user">
+        select * from bbssystem.user where uName=#{uname}
+    </select>
+    <insert id="registerUserInfo"  parameterType="user">
+        insert into bbssystem.user
+        values
+        (default,#{uname},#{upwd},#{uemail},#{usex},#{uregDate})
+
+    </insert>
+    <select id="personalInformationById" resultType="user" >
+        select * from bbssystem.user where uId=#{uid}
+    </select>
+    <update id="updatePersonalInformationById" parameterType="user">
+        update bbssystem.user
+                set uName=#{uname},uPwd=#{upwd},uEmail=#{uemail},uSex=#{usex},uRegDate=#{uregDate}
+            where uId=#{uid}
+    </update>
+</mapper>
