@@ -1,7 +1,7 @@
 package com.cheng.controller;
 
 import com.cheng.pojo.user;
-import com.cheng.service.userInfo;
+import com.cheng.service.user.userInfo;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;

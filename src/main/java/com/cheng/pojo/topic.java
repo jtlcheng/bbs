@@ -10,13 +10,14 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class topic {
-    private int tId;
-    private int sId;
-    private int uId;
-    private String tTitle;
-    private String tContent;
-    private Date tTime;
-    private int tLike;
+    private int tid;
+    private int sid;
+    private int uid;
+    private String ttitle;
+    private String tcontent;
+    private Date ttime;
+    private int tlike;
+    section section;
 
 
 

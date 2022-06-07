@@ -1,4 +1,4 @@
-package com.cheng.service;
+package com.cheng.service.user;
 
 import com.cheng.pojo.user;
 import org.apache.ibatis.annotations.Param;
@@ -16,9 +16,10 @@ public interface userInfo {
 
     /**
      * 根据用户Id修改个人信息
-     * @param uId 主键
+     * @param user
      * @return
      */
     int updatePersonalInformationById(user user);
+
 }
 

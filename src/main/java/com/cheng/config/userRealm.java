@@ -1,7 +1,7 @@
 package com.cheng.config;
 
 import com.cheng.pojo.user;
-import com.cheng.service.userInfo;
+import com.cheng.service.user.userInfo;
 
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
