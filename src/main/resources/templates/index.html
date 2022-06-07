@@ -1,13 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/html"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <h1>首页</h1>
+<!--<p shiro:guest="true">&lt;!&ndash;如果登录成功则不显示登录按钮&ndash;&gt;
+    <a th:href="@{/toLogin}">登录</a>
+</p>-->
+<!--从session中判断值-->
+<p th:if="${session.loginUser==null}"><!--如果登录成功则不显示登录按钮-->
+    <a th:href="@{/toLogin}">登录</a>
+</p>
 <p th:text="${msg}"></p>
 <hr>
-<a th:href="@{/user/addUser}">add</a>  |  <a th:href="@{/user/updateUser}">update</a>
+<div shiro:hasPermission="'user:add'" >
+    <a th:href="@{/user/addUser}">add</a>
+</div>
+<div shiro:hasPermission="'user:update'" >
+    <a th:href="@{/user/updateUser}">update</a>
+</div>
 </body>
 </html>

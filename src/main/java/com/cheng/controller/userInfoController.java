@@ -15,19 +15,34 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("userInfo")
+
 public class userInfoController {
     @Autowired
     userInfo userInfo;
-    @RequestMapping({"/","index"})
-    public String toIndex(){
+    @RequestMapping({"/","Index"})
+    public String toIndex(Model model){
+        model.addAttribute("msg","HelloShiro");
         return "index";
     }
-    @RequestMapping("/loginUserInfo")
-    public String loginUserInfo(String uName, String uPassword, Model model) {
+    @RequestMapping("/user/addUser")
+    public String add(){
+        return "user/addUser";
+    }
+    @RequestMapping("/user/updateUser")
+    public String update(){
+        return "user/updateUser";
+    }
+    @RequestMapping("/toLogin")
+    public String toLogin(){
+        return "login";
+    }
+    @RequestMapping("/login")
+    public String login(String username,String password,Model model){
         //获取当前的用户
-        Subject subject= SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(uName, uPassword);
+        Subject subject = SecurityUtils.getSubject();
+        //封装用户的登陆数据
+        UsernamePasswordToken token = new UsernamePasswordToken(username,password);
+
         try {
             subject.login(token);//执行登录方法，如果没有异常就说明OK了
             return "index";
@@ -36,8 +51,9 @@ public class userInfoController {
             return "login";
         }catch (IncorrectCredentialsException e){//密码错误
             model.addAttribute("msg","密码错误");
-            return  "login";
+            return "login";
         }
+
     }
     //注销
     @GetMapping("/logout")

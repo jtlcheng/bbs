@@ -16,4 +16,5 @@ public class user {
     private String uemail;
     private char usex;
     private Date uregDate;
+    private String Perms;
 }

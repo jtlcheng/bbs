@@ -1,6 +1,7 @@
 package com.cheng.config;
 
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,6 +35,8 @@ public class ShiroConfig {
         //授权
 //        filterMap.put("/user/addUser","perms[user:add]");
         filterMap.put("/user/addUser","perms[user:add]");
+        filterMap.put("/user/updateUser","perms[user:update]");
+
         filterMap.put("/user/*","authc");
         bean.setFilterChainDefinitionMap(filterMap);
         //设置登录的请求
@@ -62,12 +65,17 @@ public class ShiroConfig {
 
         return userRealm;
     }
-   /* //实现MD5加密
-    @Bean(name = "hashedCredentialsMatcher")
-    public HashedCredentialsMatcher hashedCredentialsMatcher() {
-        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");
-        return hashedCredentialsMatcher;
-    }*/
+    /* //实现MD5加密
+     @Bean(name = "hashedCredentialsMatcher")
+     public HashedCredentialsMatcher hashedCredentialsMatcher() {
+         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+         hashedCredentialsMatcher.setHashAlgorithmName("md5");
+         return hashedCredentialsMatcher;
+     }*/
+    //整合ShiroDialect :用来整合shiro thymeleaf
+    @Bean
+    public ShiroDialect getShiroDialect(){
+        return new ShiroDialect();
+    }
 
 }
