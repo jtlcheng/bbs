@@ -32,4 +32,9 @@ public class topicInfoController {
         System.out.println(topic);
         return topicInfo.postAMessage(topic);
     }
+    @ApiOperation("查看文章的点赞数量")
+    @GetMapping("checkTheLikes/{tid}")
+    public topic checkTheLikes(@PathVariable("tid") Integer tid){
+        return topicInfo.checkTheLikes(tid);
+    }
 }

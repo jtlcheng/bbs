@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-
 public class userInfoController {
     @Autowired
     userInfo userInfo;
@@ -53,7 +52,6 @@ public class userInfoController {
             model.addAttribute("msg","密码错误");
             return "login";
         }
-
     }
     //注销
     @GetMapping("/logout")

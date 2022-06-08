@@ -1,8 +1,7 @@
-package com.cheng.service;
+package com.cheng.service.section.impl;
 
 import com.cheng.dao.SectionInfoDao;
 import com.cheng.pojo.section;
-import com.cheng.pojo.topic;
 import com.cheng.service.section.sectionInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

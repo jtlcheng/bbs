@@ -1,7 +1,6 @@
 package com.cheng.controller;
 
 import com.cheng.pojo.section;
-import com.cheng.pojo.topic;
 import com.cheng.service.section.sectionInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

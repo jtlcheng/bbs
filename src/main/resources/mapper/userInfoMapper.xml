@@ -23,6 +23,7 @@
     <select id="personalInformationById" resultType="user" >
         select * from bbssystem.user where uId=#{uid}
     </select>
+
     <update id="updatePersonalInformationById" parameterType="user">
         update bbssystem.user
                 set uName=#{uname},uPwd=#{upwd},uEmail=#{uemail},uSex=#{usex},uRegDate=#{uregDate}

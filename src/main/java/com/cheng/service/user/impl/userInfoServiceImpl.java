@@ -1,4 +1,4 @@
-package com.cheng.service;
+package com.cheng.service.user.impl;
 
 import com.cheng.dao.userInfoDao;
 import com.cheng.pojo.user;
