@@ -1,5 +1,6 @@
 package com.cheng.controller;
 
+import com.cheng.pojo.dto.LoginDTO;
 import com.cheng.pojo.user;
 import com.cheng.service.user.userInfo;
 import io.swagger.annotations.ApiOperation;
@@ -7,52 +8,76 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
+@RequestMapping("userInfo")
 public class userInfoController {
     @Autowired
     userInfo userInfo;
-    @RequestMapping({"/","Index"})
-    public String toIndex(Model model){
-        model.addAttribute("msg","HelloShiro");
-        return "index";
+
+    @PostMapping("login")
+    @ResponseBody
+    public Map<String, Object> login(@RequestBody LoginDTO loginDTO, BindingResult bindingResult){
+        Map<String, Object> result = new HashMap<>();
+        if (bindingResult.hasErrors()) {
+            result.put("status", 400);
+            result.put("msg", bindingResult.getFieldError().getDefaultMessage());
+            return result;
+        }
+        String username = loginDTO.getUsername();
+        String password = loginDTO.getPassword();
+
+        //用户信息
+        user user = userInfo.loginUserInfo(username);
+        //账号不存在、密码错误
+        if (user == null || !user.getUpwd().equals(password)) {
+            result.put("status", 400);
+            result.put("msg", "账号或密码有误");
+        } else {
+            //生成token，并保存到数据库
+            Subject subject = SecurityUtils.getSubject();
+            //封装用户的登陆数据
+            UsernamePasswordToken token = new UsernamePasswordToken(username,password);
+            subject.login(token);
+            result.put("status", 200);
+            result.put("msg", "登陆成功");
+        }
+        return result;
     }
-    @RequestMapping("/user/addUser")
-    public String add(){
-        return "user/addUser";
-    }
-    @RequestMapping("/user/updateUser")
-    public String update(){
-        return "user/updateUser";
-    }
-    @RequestMapping("/toLogin")
-    public String toLogin(){
-        return "login";
-    }
-    @RequestMapping("/login")
-    public String login(String username,String password,Model model){
-        //获取当前的用户
+
+   /* //获取当前的用户
         Subject subject = SecurityUtils.getSubject();
         //封装用户的登陆数据
         UsernamePasswordToken token = new UsernamePasswordToken(username,password);
-
+        //记住我功能
+        token.setRememberMe(true);
         try {
             subject.login(token);//执行登录方法，如果没有异常就说明OK了
-            return "index";
+
+
+            Subject currentSubject=SecurityUtils.getSubject();
+            Session session = currentSubject.getSession();
+            session.setAttribute("loginUser",subject);
+
         }catch (UnknownAccountException e){//用户名不存在
-            model.addAttribute("msg","用户名错误");
-            return "login";
+            return null;
         }catch (IncorrectCredentialsException e){//密码错误
-            model.addAttribute("msg","密码错误");
-            return "login";
+            return null;
         }
-    }
+
+    }*/
     //注销
     @GetMapping("/logout")
     public String logout(){

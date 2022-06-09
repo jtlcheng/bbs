@@ -3,6 +3,8 @@ package com.cheng.service.user;
 import com.cheng.pojo.user;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Map;
+
 public interface userInfo {
     user loginUserInfo(String uName);
     boolean registerUserInfo(user user);

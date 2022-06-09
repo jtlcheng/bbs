@@ -1,5 +1,6 @@
 package com.cheng.service.user.impl;
 
+import com.cheng.config.shiro.TokenGenerator;
 import com.cheng.dao.userInfoDao;
 import com.cheng.pojo.user;
 import com.cheng.service.user.userInfo;
@@ -11,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class userInfoServiceImpl implements userInfo {
+
     @Autowired
     userInfoDao dao;
     @Override
     public user loginUserInfo(String uName) {
         return dao.loginUserInfo(uName);
     }
+
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)

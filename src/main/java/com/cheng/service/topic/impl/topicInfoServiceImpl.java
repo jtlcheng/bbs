@@ -38,5 +38,17 @@ public class topicInfoServiceImpl implements topicInfo {
         return dao.checkTheLikes(tid);
     }
 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED )
+    public int giveALike(int uid, int tid) {
+        return dao.giveALike(uid,tid);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED )
+    public int giveALike_1(int uid, int tid) {
+        return dao.giveALike_1(uid,tid);
+    }
+
 
 }

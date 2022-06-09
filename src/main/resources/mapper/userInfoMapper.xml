@@ -11,7 +11,7 @@
         <result column="uSex" property="usex"/>
         <result column="uRegDate" property="uregDate"/>
     </resultMap>
-    <select id="loginUserInfo" resultType="user" parameterType="user">
+    <select id="loginUserInfo" resultType="user" parameterType="String">
         select * from bbssystem.user where uName=#{uname}
     </select>
     <insert id="registerUserInfo"  parameterType="user">

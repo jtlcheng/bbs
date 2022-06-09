@@ -37,4 +37,14 @@ public class topicInfoController {
     public topic checkTheLikes(@PathVariable("tid") Integer tid){
         return topicInfo.checkTheLikes(tid);
     }
+    @ApiOperation("点赞+1")
+    @PostMapping("giveALike")
+    public boolean giveALike(int uid,int tid){
+        return topicInfo.giveALike(uid,tid)>0;
+    }
+    @ApiOperation("点赞-1")
+    @PostMapping("giveALike_1")
+    public boolean giveALike_1(int uid,int tid){
+        return topicInfo.giveALike_1(uid,tid)>0;
+    }
 }

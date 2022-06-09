@@ -42,12 +42,11 @@ public class userRealm extends AuthorizingRealm {
         UsernamePasswordToken userToken=(UsernamePasswordToken) token;
         //获取真实的数据库密码
         user user = userInfo.loginUserInfo(userToken.getUsername());
-        if (user==null){
-            return null;
-        }
-        Subject currentSubject=SecurityUtils.getSubject();
+      
+
+        /*Subject currentSubject=SecurityUtils.getSubject();
         Session session = currentSubject.getSession();
-        session.setAttribute("loginUser",user);
+        session.setAttribute("loginUser",user);*/
         //可以加密 MD5:b68dfe15c36592af941c8758f574f267 MD5盐值加密:b68dfe15c36592af941c8758f574f267username
         //密码认证，shiro 做
         return new SimpleAuthenticationInfo(user,user.getUpwd(),"");
