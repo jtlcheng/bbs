@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cheng.dao.RoleInfoDao">
+    <resultMap id="roleMap" type="role">
+        <id column="roleId" property="roleid"/>
+        <result column="roleName" property="rolename"/>
+
+        <association property="user" javaType="user">
+            <id column="uId" property="uid"/>
+            <result column="uName" property="uname"/>
+            <result column="uPwd" property="upwd"/>
+            <result column="uEmail" property="uemail"/>
+            <result column="uSex" property="usex"/>
+            <result column="uRegDate" property="uregDate"/>
+            <result column="perms" property="perms"/>
+            <result column="roleId" property="roleid"/>
+        </association>
+    </resultMap>
+    <select id="findRole" resultType="role" parameterType="integer" resultMap="roleMap">
+        SELECT * from bbssystem.role r,bbssystem.`user` u where r.roleId=#{roleid} and r.roleId=u.roleId
+    </select>
+</mapper>

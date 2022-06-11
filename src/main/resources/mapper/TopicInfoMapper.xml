@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cheng.dao.TopicInfoDao">
+    <resultMap id="topicMap" type="com.cheng.pojo.topic">
+        <id column="tId" property="tid"/>
+        <result column="sId" property="sid"/>
+        <result column="uId" property="uid"/>
+        <result column="tTitle" property="ttitle"/>
+        <result column="tContent" property="tcontent"/>
+        <result column="tTime" property="ttime"/>
+        <result column="tLike" property="tlike"/>
+
+        <association property="section" javaType="section">
+            <id column="sId" property="sId"/>
+            <result property="sName" column="sName"/>
+        </association>
+    </resultMap>
+    <select id="SearchForPosts" resultMap="topicMap" parameterType="topic">
+        SELECT s.*,t.uId,t.tTitle,t.tContent,t.tContent,t.tTime,t.tLike
+        from section s,topic t where s.sName=#{sName} and s.sId=t.sId
+    </select>
+    <select id="browseThePost" resultMap="topicMap" parameterType="topic">
+        select  * from topic
+    </select>
+    <insert id="postAMessage" parameterType="topic">
+        insert into bbssystem.topic
+        values
+        (default,#{sid},#{uid},#{ttitle},#{tcontent},#{ttime},0)
+    </insert>
+    <select id="checkTheLikes" parameterType="int" resultMap="topicMap">
+        select tid,tLike from topic where tId=#{tid}
+    </select>
+    <update id="giveALike" parameterType="int">
+        update topic t ,(select tLike+1 tLike from topic where tid=#{tid}) n
+        set t.tLike = n.tLike
+        WHERE t.uId=#{uid} AND t.tId=#{tid}
+    </update>
+    <update id="giveALike_1" parameterType="int">
+        update topic t ,(select tLike-1 tLike from topic where tid=#{tid}) n
+        set t.tLike = n.tLike
+        WHERE t.uId=#{uid} AND t.tId=#{tid}
+    </update>
+
+
+</mapper>

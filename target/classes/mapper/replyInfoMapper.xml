@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cheng.dao.replyInfoDao">
+    <resultMap id="replyMap" type="reply">
+        <id column="rId" property="rid"/>
+        <result column="tId" property="tid"/>
+        <result column="uId" property="uid"/>
+        <result column="rContent" property="rcontent"/>
+        <result column="rTime" property="rtime"/>
+        <result column="tState" property="rstatue"/>
+        <result column="status" property="status"/>
+    </resultMap>
+    <select id="listAllContent" resultMap="replyMap" parameterType="reply">
+        select * from reply where status!=2 and uId=#{uid}
+    </select>
+    <insert id="addContent" parameterType="reply">
+        insert into reply
+            values
+        (default,#{tid},#{uid},#{rcontent},#{rtime},0,0)
+    </insert>
+    <update id="updateStatue" parameterType="reply">
+        update bbssystem.reply set status=#{status} where rld=#{rid}
+    </update>
+    <update id="updateStatueEnd" parameterType="reply">
+        update bbssystem.reply set status=#{status} where rld=#{rid}
+    </update>
+    <update id="updateStatueEndFail" parameterType="reply">
+        update bbssystem.reply set status=#{status} where rld=#{rid}
+    </update>
+
+</mapper>
