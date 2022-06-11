@@ -2,6 +2,7 @@ package com.cheng.config;
 
 
 import com.cheng.pojo.user;
+import com.cheng.service.role.roleInfo;
 import com.cheng.service.user.userInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -13,10 +14,15 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.management.relation.Role;
+import java.util.List;
+
 //自定义的UserRealm
 public class userRealm extends AuthorizingRealm {
     @Autowired
     userInfo userInfo;
+    @Autowired
+    roleInfo roleInfo;
     //授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {

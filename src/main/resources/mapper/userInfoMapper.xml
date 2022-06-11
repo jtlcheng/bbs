@@ -10,6 +10,12 @@
         <result column="uEmail" property="uemail"/>
         <result column="uSex" property="usex"/>
         <result column="uRegDate" property="uregDate"/>
+        <result column="perms" property="perms"/>
+        <result column="roleId" property="roleid"/>
+        <association property="role" javaType="role">
+            <id column="roleId" property="roleid"/>
+            <result column="roleName" property="rolename"/>
+        </association>
     </resultMap>
     <select id="loginUserInfo" resultType="user" parameterType="String">
         select * from bbssystem.user where uName=#{uname}

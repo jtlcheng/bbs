@@ -57,32 +57,12 @@ public class userInfoController {
         return result;
     }
 
-   /* //获取当前的用户
-        Subject subject = SecurityUtils.getSubject();
-        //封装用户的登陆数据
-        UsernamePasswordToken token = new UsernamePasswordToken(username,password);
-        //记住我功能
-        token.setRememberMe(true);
-        try {
-            subject.login(token);//执行登录方法，如果没有异常就说明OK了
-
-
-            Subject currentSubject=SecurityUtils.getSubject();
-            Session session = currentSubject.getSession();
-            session.setAttribute("loginUser",subject);
-
-        }catch (UnknownAccountException e){//用户名不存在
-            return null;
-        }catch (IncorrectCredentialsException e){//密码错误
-            return null;
-        }
-
-    }*/
     //注销
-    @GetMapping("/logout")
-    public String logout(){
+    @PostMapping("logout")
+    @ResponseBody
+    public boolean logout(){
         SecurityUtils.getSubject().logout();
-        return "login";
+        return true;
     }
     //注册    
     @PostMapping("/register")
