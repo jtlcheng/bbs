@@ -26,4 +26,5 @@ public class sectionInfoController {
     public section listTopicBySectionId(@PathVariable("sId") int sId){
         return sectionInfo.listTopicBySectionId(sId);
     }
+
 }

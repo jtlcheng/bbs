@@ -23,6 +23,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("userInfo")
+@CrossOrigin
 public class userInfoController {
     @Autowired
     userInfo userInfo;

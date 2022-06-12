@@ -6,6 +6,15 @@
     <resultMap id="sectionMap" type="section">
         <id column="sId" property="sId"/>
         <result column="sName" property="sName"/>
+    <collection property="topic" ofType="topic">
+        <id column="tId" property="tid"/>
+        <result column="sId" property="sid"/>
+        <result column="uId" property="uid"/>
+        <result column="tTitle" property="ttitle"/>
+        <result column="tContent" property="tcontent"/>
+        <result column="tTime" property="ttime"/>
+        <result column="tLike" property="tlike"/>
+    </collection>
     </resultMap>
     <select id="listAllSection" resultMap="sectionMap">
         select * from section
@@ -13,4 +22,21 @@
     <select id="listTopicBySectionId" resultMap="sectionMap" parameterType="int">
         select * from section where sId=#{sId}
     </select>
+    <insert id="createASection" parameterType="section">
+        insert into bbssystem.section values (default,#{sName})
+    </insert>
+    <update id="updateASection" parameterType="section">
+        update bbssystem.section
+            set sName=#{sName}
+        where sId=#{sId}
+    </update>
+    <delete id="deleteASectionBySid" parameterType="int">
+        delete from bbssystem.section where sId=#{sId}
+    </delete>
+    <select id="querySectionByTopic" resultMap="sectionMap" parameterType="section">
+        SELECT s.*,t.tId,t.uId,t.tTitle,t.tContent,t.tTime,t.tLike
+        from
+        bbssystem.section s,bbssystem.topic t where s.sId=t.sId and s.sId=#{sId}
+    </select>
+
 </mapper>
