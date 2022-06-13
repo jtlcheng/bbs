@@ -27,4 +27,18 @@ public interface userInfoDao {
      */
     int updatePersonalInformationById(user user);
 
+    /**
+     *修改用户指定状态
+     * @param user
+     * @return
+     */
+    boolean updateStatus(user user);
+
+    /**
+     * 根据激活码查询对象
+     * @param code
+     * @return
+     */
+    user findByCode(String code);
+
 }

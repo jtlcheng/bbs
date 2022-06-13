@@ -17,13 +17,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 
 @Controller
 @RequestMapping("userInfo")
-@CrossOrigin
+
 public class userInfoController {
     @Autowired
     userInfo userInfo;
@@ -54,6 +58,7 @@ public class userInfoController {
             subject.login(token);
             result.put("status", 200);
             result.put("msg", "登陆成功");
+            result.put("token",token);
         }
         return result;
     }
@@ -66,13 +71,32 @@ public class userInfoController {
         return true;
     }
     //注册    
-    @PostMapping("/register")
+    @PostMapping("registerUserInfo")
     @ResponseBody
-    public boolean registerUserInfo(@RequestBody user user){
+    public boolean registerUserInfo(@RequestBody user user) throws MessagingException {
         System.out.println(user);
         return userInfo.registerUserInfo(user);
-
     }
+    @RequestMapping("findByCode")
+    public void findByCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String code=request.getParameter("code");
+        if (code!=null){
+            boolean flag=userInfo.findByCode(code);
+
+            //3.判断标记
+            String msg = null;
+            if (flag) {
+                //激活成功
+                msg = "激活成功，请<a href='/login.html'>登录</a>";
+            } else {
+                //激活失败
+                msg = "激活失败，请联系管理员！";
+            }
+            response.setContentType("text/html;charset=utf-8");
+            response.getWriter().write(msg);
+        }
+        }
+
     @ApiOperation("查看个人信息")
     @GetMapping("personalInformationById/{uid}")
     @ResponseBody

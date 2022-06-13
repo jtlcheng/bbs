@@ -18,5 +18,7 @@ public class user {
     private Date uregDate;
     private String perms;
     private Integer roleid;
+    private String status;
+    private String code;
     role role;
 }

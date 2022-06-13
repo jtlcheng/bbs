@@ -12,20 +12,28 @@
         <result column="uRegDate" property="uregDate"/>
         <result column="perms" property="perms"/>
         <result column="roleId" property="roleid"/>
+        <result column="status" property="status"/>
+        <result column="code" property="code"/>
         <association property="role" javaType="role">
             <id column="roleId" property="roleid"/>
             <result column="roleName" property="rolename"/>
         </association>
     </resultMap>
     <select id="loginUserInfo" resultType="user" parameterType="String">
-        select * from bbssystem.user where uName=#{uname}
+        select * from bbssystem.user where uName=#{uname} and status='Y'
     </select>
     <insert id="registerUserInfo"  parameterType="user">
-        insert into bbssystem.user
+        insert into bbssystem.user(uId, uName, uPwd, uEmail, status, code)
         values
-        (default,#{uname},#{upwd},#{uemail},#{usex},#{uregDate})
+        (default,#{uname},#{upwd},#{uemail},#{status},#{code})
 
     </insert>
+    <update id="updateStatus" parameterType="user">
+        update bbssystem.user set status ='Y' where uId=#{uid}
+    </update>
+    <select id="findByCode" parameterType="String" resultMap="userMap">
+        select * from bbssystem.user where code=#{code}
+    </select>
     <select id="personalInformationById" resultType="user" >
         select * from bbssystem.user where uId=#{uid}
     </select>
